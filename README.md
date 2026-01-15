@@ -15,6 +15,14 @@ This creates the SQLite database using the migrations.
 
 Run the project.
 
-If I were to deploy it, I would use the built-in Publish option in Visual Studio and publish to a hosting service (for example Azure App Service), but for the assignment I only needed to explain the steps.
+Deployment Note:
+I did not deploy the application, but if I were to deploy it I would use the Publish option in Visual Studio and deploy to a hosting provider Azure App Service. 
+The steps would be:
+1. Open the project in Visual Studio.
+2. Right-click the project and select Publish.
+3. Choose Azure App Service or another hosting option. 
+4. Configure the service and database connection.
+5. Publish the application.
 
-That’s everything needed to run and test the application.
+For the purposes of this assignment, the project runs locally using SQLite.
+
