@@ -29,10 +29,14 @@ namespace Bookstore.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
-            var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null) return NotFound();
+            var book = await _context.Books
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (book == null)
+                return NotFound();
 
             return View(book);
         }
@@ -56,6 +60,7 @@ namespace Bookstore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(book);
         }
 
@@ -63,10 +68,12 @@ namespace Bookstore.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
             var book = await _context.Books.FindAsync(id);
-            if (book == null) return NotFound();
+            if (book == null)
+                return NotFound();
 
             return View(book);
         }
@@ -77,7 +84,8 @@ namespace Bookstore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Price")] Book book)
         {
-            if (id != book.Id) return NotFound();
+            if (id != book.Id)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -88,11 +96,14 @@ namespace Bookstore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.Id)) return NotFound();
-                    throw;
+                    if (!BookExists(book.Id))
+                        return NotFound();
+                    else
+                        throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(book);
         }
 
@@ -100,12 +111,14 @@ namespace Bookstore.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (book == null) return NotFound();
+            if (book == null)
+                return NotFound();
 
             return View(book);
         }
@@ -119,9 +132,11 @@ namespace Bookstore.Controllers
             var book = await _context.Books.FindAsync(id);
 
             if (book != null)
+            {
                 _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
+            }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -131,3 +146,4 @@ namespace Bookstore.Controllers
         }
     }
 }
+
